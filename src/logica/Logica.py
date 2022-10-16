@@ -322,19 +322,23 @@ class Logica():
 
     def crear_apuesta(self, apostador, id_carrera, valor, competidor):
         resultado = False
-        idCompetidor = self.obtener_indice_competidor(id_carrera, competidor)        
-        idAposador = self.obtener_id_apostador(apostador)
-        if(len(self.carreras) > 0 and self.validar_competidor(id_carrera, idCompetidor) and self.validar_apostador(idAposador)):
-            n_apuesta = {}
-            n_apuesta['Apostador'] = Apostador
-            n_apuesta['Carrera'] = self.carreras[id_carrera]['Nombre']
-            n_apuesta['CarreraId'] = id_carrera
-            n_apuesta['Valor'] = valor
-            n_apuesta['IdCompetidor'] = idCompetidor
-            n_apuesta['Competidor'] = Competidor
-            self.apuestas.append(n_apuesta)
-            carreraActual = self.dar_carrera(id_carrera)
-            resultado = self.crear_apuesta_bd(valor, idCompetidor, idAposador, carreraActual)
+        try:
+
+            idCompetidor = self.obtener_indice_competidor(id_carrera, competidor)        
+            idAposador = self.obtener_id_apostador(apostador)
+            if(len(self.carreras) > 0 and self.validar_competidor(id_carrera, idCompetidor) and self.validar_apostador(idAposador)):
+                n_apuesta = {}
+                n_apuesta['Apostador'] = Apostador
+                n_apuesta['Carrera'] = self.carreras[id_carrera]['Nombre']
+                n_apuesta['CarreraId'] = id_carrera
+                n_apuesta['Valor'] = valor
+                n_apuesta['IdCompetidor'] = idCompetidor
+                n_apuesta['Competidor'] = Competidor
+                self.apuestas.append(n_apuesta)
+                carreraActual = self.dar_carrera(id_carrera)
+                resultado = self.crear_apuesta_bd(valor, idCompetidor, idAposador, carreraActual)
+        except:
+            resultado = False        
         return resultado 
 
     def crear_apuesta_bd(self, valor, idCompetidor, idAposador, carreraActual):

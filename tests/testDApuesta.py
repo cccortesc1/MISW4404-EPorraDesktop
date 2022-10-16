@@ -91,12 +91,12 @@ class TestApuestas(unittest.TestCase):
         self.assertTrue(xApuesta)        
 
     #Prueba marcar competidor como ganador y terminar la carrera
-    def test_terminar_carrera(self):
-        self.logica.carreras = self.logica.dar_carreras()
-        idCarrera = 0
-        idCompetidor = 0
-        carrera = self.logica.terminar_carrera(idCarrera,idCompetidor)
-        self.assertTrue(carrera)    
+    # def test_terminar_carrera(self):
+    #     self.logica.carreras = self.logica.dar_carreras()
+    #     idCarrera = 0
+    #     idCompetidor = 0
+    #     carrera = self.logica.terminar_carrera(idCarrera,idCompetidor)
+    #     self.assertTrue(carrera)    
     
     # #Prueba marcar competidor como ganador y terminar la carrera sin apuesta, debe retornar falso
     # def test_terminar_carrera_sin_apuestas(self):
