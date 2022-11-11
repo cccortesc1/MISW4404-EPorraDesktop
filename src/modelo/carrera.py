@@ -9,5 +9,3 @@ class Carrera(Base):
     id = Column(Integer, primary_key=True)
     nombre = Column(String)
     abierta = Column(Boolean, unique=False, default=True)
-    #competidores = relationship('Competidor',  cascade='all, delete, delete-orphan')
-    #apuestas = relationship('Apuesta',  cascade='all, delete, delete-orphan')

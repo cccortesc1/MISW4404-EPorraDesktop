@@ -1,4 +1,5 @@
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QLabel, QWidget, QHBoxLayout, QPushButton, QLineEdit, QGridLayout, QVBoxLayout, QGroupBox
+from PyQt5.QtWidgets import QScrollArea, QSizePolicy, QSpacerItem, QMessageBox
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
@@ -8,6 +9,7 @@ from .Vista_crear_competidor import Dialogo_crear_competidor
 
 class Vista_carrera(QWidget):
     #Ventana de la carrera
+    msg_title_error = "Error Competidor"
 
     def __init__(self,principal):
         """
@@ -204,18 +206,19 @@ class Vista_carrera(QWidget):
         """    
         dialogo = Dialogo_crear_competidor()
         dialogo.exec_()
+        
         if dialogo.resultado == 1:
             try:
                 if(float(dialogo.texto_probabilidad.text()) < 0 or float(dialogo.texto_probabilidad.text()) >= 1):
-                    self.mensaje_generar("Error Competidor", "El valor de la probabilidad debe estar en el rango de 0 a 1 sin incluir estos valores")    
+                    self.mensaje_generar(self.msg_title_error, "El valor de la probabilidad debe estar en el rango de 0 a 1 sin incluir estos valores")    
                 else:    
                     if(len(dialogo.texto_nombre.text().strip()) > 0):
                         self.competidores.append({'Nombre':dialogo.texto_nombre.text(), 'Probabilidad':float(dialogo.texto_probabilidad.text()), 'Estado':'Nueva'})
                         self.mostrar_competidores(self.texto_nombre.text(), self.competidores)
                     else:
-                        self.mensaje_generar("Error Competidor", "El nombre del competidor no puede ser vacío")    
+                        self.mensaje_generar(self.msg_title_error, "El nombre del competidor no puede ser vacío")    
             except ValueError:
-                self.mensaje_generar("Error Competidor", "El valor de la probabilidad debe ser numérico, el separador debe ser el punto [.]")
+                self.mensaje_generar(self.msg_title_error, "El valor de la probabilidad debe ser numérico, el separador debe ser el punto [.]")
             
     
     def editar_competidor(self, indice_competidor):
@@ -227,13 +230,13 @@ class Vista_carrera(QWidget):
         if dialogo.resultado == 1:
             try:
                 if(float(dialogo.texto_probabilidad.text()) < 0 or float(dialogo.texto_probabilidad.text()) >= 1):
-                    self.mensaje_generar("Error Competidor", "El valor de la probabilidad debe estar en el rango de 0 a 1 sin incluir estos valores")    
+                    self.mensaje_generar(self.msg_title_error, "El valor de la probabilidad debe estar en el rango de 0 a 1 sin incluir estos valores")    
                 else:    
                     self.competidores[indice_competidor]['Probabilidad'] = float(dialogo.texto_probabilidad.text())
                     self.competidores[indice_competidor]['Nombre']=dialogo.texto_nombre.text()
                     self.competidores[indice_competidor]['Estado'] = self.competidores[indice_competidor].get('Estado', 'Editada')
             except ValueError:
-                self.mensaje_generar("Error Competidor", "El valor de la probabilidad debe ser numérico, el separador debe ser el punto [.]")        
+                self.mensaje_generar(self.msg_title_error, "El valor de la probabilidad debe ser numérico, el separador debe ser el punto [.]")        
             self.mostrar_competidores(self.texto_nombre.text(), self.competidores)
    
     def guardar_cambios(self):
